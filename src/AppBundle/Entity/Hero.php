@@ -27,6 +27,15 @@ class Hero {
    */
   private $description;
 
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $image_url;
+
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $image_extension;
 
     /**
      * Get id
@@ -84,5 +93,53 @@ class Hero {
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set imageUrl
+     *
+     * @param string $imageUrl
+     *
+     * @return Hero
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->image_url = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageUrl
+     *
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->image_url;
+    }
+
+    /**
+     * Set imageExtension
+     *
+     * @param string $imageExtension
+     *
+     * @return Hero
+     */
+    public function setImageExtension($imageExtension)
+    {
+        $this->image_extension = $imageExtension;
+
+        return $this;
+    }
+
+    /**
+     * Get imageExtension
+     *
+     * @return string
+     */
+    public function getImageExtension()
+    {
+        return $this->image_extension;
     }
 }
