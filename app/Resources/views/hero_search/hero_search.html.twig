@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hero search {% endblock %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/hero-search.css') }}" />
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="hero-search container">
+    <div class="row">
+        <div class="hero-search-bar">
+            <form method="POST">
+                <input type="text" name="search">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="search-results">
+        {% for key,hero in heroes  %}
+            <div class="hero container col-sm-3" id="hero-{{ key }}">
+                <div class="hero-name">{{ hero.name }}</div>
+                <div class="hero-portrait">
+                    <img src="{{ hero.imageurl }}/portrait_xlarge.{{ hero.imageextension }}">
+                </div>
+                <div class="cta">
+                    <a href="hero/{{ hero.heroId }}">
+                        <button class="read-more btn">Read more</button>
+
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

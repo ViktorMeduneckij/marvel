@@ -37,6 +37,11 @@ class Hero {
    */
   private $image_extension;
 
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $heroId;
+
     /**
      * Get id
      *
@@ -142,4 +147,28 @@ class Hero {
     {
         return $this->image_extension;
     }
+
+  /**
+   * Get heroId
+   *
+   * @return string
+   */
+  public function getHeroId()
+  {
+    return $this->heroId;
+  }
+
+  /**
+   * Set heroId
+   *
+   * @param string $heroId
+   *
+   * @return string
+   */
+  public function setHeroId($heroId)
+  {
+    $this->heroId = $heroId;
+
+    return $this;
+  }
 }

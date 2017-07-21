@@ -12,25 +12,26 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class DefaultController extends Controller
+class HeroSearchController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/heroes", name="hero_search")
      */
     public function indexAction(Request $request)
     {
       $heroName = $request->request->get('search');
+
       $this->connectToApi();
+
       if(!empty($heroName)) {
         $heroes = $this->retrieveByName($heroName, $this->connectToApi());
-        return $this->render('home/homepage.html.twig', array(
+        return $this->render('hero_search/hero_search.html.twig', array(
           'heroes' => $heroes,
         ));
       }
-
-
-
-      return $this->render('home/homepage.html.twig');
+      return $this->render('hero_search/hero_search.html.twig', array(
+        'heroes' => null,
+      ));
     }
 
     public function getHeroRepo()
@@ -74,8 +75,9 @@ class DefaultController extends Controller
       $all_heroes = array();
       for($i = 0; $i < count($results); $i++) {
           $hero[$i] = new Hero();
+
+          $hero[$i]->setHeroId($results[$i]['id']);
           $hero[$i]->setName($results[$i]['name']);
-          $hero[$i]->setDescription($results[$i]['description']);
           $hero[$i]->setImageUrl($results[$i]['thumbnail']['path']);
           $hero[$i]->setImageExtension($results[$i]['thumbnail']['extension']);
           array_push($all_heroes, $hero[$i]);

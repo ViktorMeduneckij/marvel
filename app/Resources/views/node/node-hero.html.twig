@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ hero.name }} {% endblock %}
+
+{% block body %}
+
+    <div class="hero- {{ hero.heroId }}">
+        <div class="hero container" id="hero-{{ hero.heroId }}" style="width: 100%;">
+            <div class="row" style="padding: 10px;">
+                <div class="hero-portrait col-md-4">
+                    <img src="{{ hero.imageurl }}/portrait_incredible.{{ hero.imageextension }}">
+                </div>
+                <span class = "label label-default">Description</span>
+                <div class="hero-description cold-md-2">{{ hero.description }}</div>
+            </div>
+            <div class="row" style="padding: 10px;">
+
+            <div class="hero-name col-md-4">
+                <span class = "label label-info" style="font-size: 18px;">{{ hero.name }}</span>
+            </div>
+        </div>
+        </div>
+
+    </div>
+{% endblock %}
