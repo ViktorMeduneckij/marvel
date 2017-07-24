@@ -34,13 +34,6 @@ class HeroSearchController extends Controller
       ));
     }
 
-    public function getHeroRepo()
-    {
-        $em = $this-> getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:Hero');
-        return $repository;
-    }
-
     public function connectToApi()
     {
       //Create a TimeStamp
@@ -84,28 +77,4 @@ class HeroSearchController extends Controller
       }
       return $all_heroes;
     }
-
-    public function saveHero($hero)
-    {
-      $em = $this->getDoctrine()->getManager();
-
-      //Check if hero with the same name exists, if it does, don't push to database
-      $old_hero = $this->getDoctrine()
-        ->getRepository(Hero::class)
-        ->find($hero->getName());
-
-      if(!empty($old_hero)) {
-        $em->persist($hero);
-        $em->flush();
-        return new Response(
-          '<html><body>Good</body></html>'
-        );
-      }
-      else {
-        return new Response(
-          '<html><body>This exists son</body></html>'
-        );
-      }
-    }
-
-}
+  }
