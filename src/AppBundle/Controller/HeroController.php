@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comic;
 use AppBundle\Entity\Hero;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,9 +20,11 @@ class HeroController extends HeroSearchController
   public function showAction($slug) {
     $query = $this->connectToApi();
     $hero = $this->getHeroById($query, $slug);
+    $comics = $this->getHeroComicsById($query, $hero->getHeroId());
 
     return $this->render('node/node-hero.html.twig', array(
       'hero' => $hero,
+      'comics' => $comics,
     ));
   }
 
@@ -40,8 +43,36 @@ class HeroController extends HeroSearchController
     $hero->setImageExtension($results[0]['thumbnail']['extension']);
 
     if(empty($hero->getDescription())) {
-      $hero->setDescription('Oops this seems to appear empty:(');
+      $hero->setDescription('Oops this seems to appear empty...');
     }
+
     return $hero;
+  }
+
+  //Gets spesific hero comics
+  public function getHeroComicsById($query, $id)
+  {
+    $response = file_get_contents('http://gateway.marvel.com/v1/public/characters/' . $id . '/comics?' . $query);
+    $response_data = json_decode($response, true);
+
+    $results = $response_data['data']['results'];
+    $all_comics = array();
+
+    for($i = 0; $i < count($results); $i++) {
+      $comic[$i] = new Comic();
+
+      $comic[$i]->setComicId($results[$i]['id']);
+      $comic[$i]->setTitle($results[$i]['title']);
+      $comic[$i]->setDescription($results[$i]['description']);
+      $comic[$i]->setPageCount($results[$i]['pageCount']);
+      $comic[$i]->setCoverPath($results[$i]['thumbnail']['path']);
+      $comic[$i]->setCoverExtension($results[$i]['thumbnail']['extension']);
+      $comic[$i]->setCreators($results[$i]['creators']['collectionURI']);
+      $comic[$i]->setCharacters($results[$i]['characters']['collectionURI']);
+
+      array_push($all_comics, $comic[$i]);
+    }
+
+    return $all_comics;
   }
 }

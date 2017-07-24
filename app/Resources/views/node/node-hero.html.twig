@@ -20,6 +20,27 @@
             </div>
         </div>
         </div>
+        <div class="row" style="border-top: solid; margin: 10px; padding: 10px;">
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+            <a href="#">Available Comics <span class="badge">{{ comics|length }}</span></a><br>
+            </div>
+
+        </div>
+        <div class="row" style="text-align: center">
+        <div class="comic container">
+            {% for key,comic in comics  %}
+                <div class="comic--{{ key }} col-md-3">
+                    <a href="/comic/{{ comic.comicID }}">
+                    <div class="comic-cover">
+                        <img src="{{ comic.coverPath }}/portrait_xlarge.{{ comic.coverExtension }}">
+                    </div>
+                    </a>
+                    <div class="comic-title" style="padding: 5px;">{{ comic.title }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
 
     </div>
 {% endblock %}

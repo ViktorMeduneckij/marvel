@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ comic.title }} {% endblock %}
+
+{% block body %}
+    <div class="comic container" style="width: 100%;">
+        <div class="row" style="padding: 10px;">
+            <div class="comic-cover col-md-4">
+                <img src="{{ comic.coverPath }}/portrait_incredible.{{ comic.coverExtension }}">
+            </div>
+            <div class="comic-description col-md-4">
+                <p>{{ comic.description }}</p>
+            </div>
+        </div>
+        <div class="row" style="padding: 10px;">
+            <div class="comic-title col-md-4">{{ comic.title }}</div>
+        </div>
+        <div class="fact-box" style="text-align: center">Fact box
+            <div class="row" style="padding: 10px;">
+                <div class="comic-creators col-md-2">
+                    <a href="#">Creators <span class="badge">{{ creators|length }}</span></a><br>
+                    {% for key,creator in creators  %}
+                        <div class="creator-{{ key }}">
+                            <div class="creator-first-name">
+                                <p>{{ creator.firstName }} {{ creator.lastName }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="comic-pages col-md-1">{{ comic.pageCount }} pages</div>
+                <div class="comic-characters col-md-9">
+                    <a href="#">Heroes in this comics <span class="badge">{{ heroes|length }}</span></a><br>
+                    {% for key,hero in heroes  %}
+                        <div class="hero-{{ key }} col-md-4" style="padding: 5px;">
+                            <img src="{{ hero.imageurl }}/portrait_xlarge.{{ hero.imageextension }}">
+                            <div class="hero-name">{{ hero.name }}</div>
+                        </div>
+                    {% endfor %}
+
+        </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
