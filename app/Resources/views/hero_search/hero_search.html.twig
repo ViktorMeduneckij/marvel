@@ -10,32 +10,98 @@
 
 {% block body %}
     <div class="hero-search container">
+        <div class="row">
+            <div class="hero-search-bar">
+                <form method="POST">
+                    <input type="text" name="search">
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="row">
-        <div class="hero-search-bar">
-            <form method="POST">
-                <input type="text" name="search">
-                <input type="submit">
-            </form>
+    <div class="container col-md-12" style="border-radius:4px; margin-top: 10px; background-color: rgba(100, 160, 206, 0.74);">
+            <div class="alphabetical-filtering row">
+                <select class="letter-filtering col-md-2" name="letter-select" style="margin: 5px; font-size: 20px; padding: 10px;">
+                    <option value="none">None</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R">R</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="U">U</option>
+                    <option value="V">V</option>
+                    <option value="W">W</option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="A">Z</option>
+                </select>
+            </div>
+        <div class="row" style="text-align: right">
+            <button onclick="submitLetterFiltering()" style="margin: 10px;">Submit</button>
         </div>
     </div>
     </div>
 
-    <div class="search-results">
-        {% for key,hero in heroes  %}
-            <div class="hero container col-sm-3" id="hero-{{ key }}">
-                <div class="hero-name">{{ hero.name }}</div>
-                <div class="hero-portrait">
-                    <img src="{{ hero.imageurl }}/portrait_xlarge.{{ hero.imageextension }}">
-                </div>
-                <div class="cta">
-                    <a href="hero/{{ hero.heroId }}">
-                        <button class="read-more btn">Read more</button>
+<div class="row" style="margin-top: 10px;">
+<div class="col-md-2">
+</div>
+    <div class="search-results col-md-8" style="border-top: solid">
+        {% if heroes|length <= 0 %}
+            {% for key,hero in allheroes  %}
+                <div class="hero container col-sm-3" id="hero-{{ key }}">
+                    <div class="hero-name">{{ hero.name }}</div>
+                    <div class="hero-portrait">
+                        <img src="{{ hero.imageurl }}/portrait_xlarge.{{ hero.imageextension }}">
+                    </div>
+                    <div class="cta">
+                        <a href="hero/{{ hero.heroId }}">
+                            <button class="read-more btn">Read more</button>
 
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% elseif heroes|length >= 0 %}
+            {% for key,hero in heroes  %}
+                <div class="hero container col-sm-3" id="hero-{{ key }}">
+                    <div class="hero-name">{{ hero.name }}</div>
+                    <div class="hero-portrait">
+                        <img src="{{ hero.imageurl }}/portrait_xlarge.{{ hero.imageextension }}">
+                    </div>
+                    <div class="cta">
+                        <a href="hero/{{ hero.heroId }}">
+                            <button class="read-more btn">Read more</button>
+
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/handleLetterFiltering.js') }}"></script>
 {% endblock %}
 
 
